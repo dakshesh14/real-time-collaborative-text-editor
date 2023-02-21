@@ -1,10 +1,9 @@
-import { useCallback, FC, useState, useEffect } from "react";
+import { useCallback, FC } from "react";
 import { InvalidContentHandler } from "remirror";
 import {
   BoldExtension,
   ItalicExtension,
   CalloutExtension,
-  PlaceholderExtension,
   CodeBlockExtension,
   CodeExtension,
   HistoryExtension,
@@ -14,11 +13,9 @@ import {
   OrderedListExtension,
   ListItemExtension,
   BulletListExtension,
-  DropCursorExtension,
-  StrikeExtension,
-  MentionAtomExtension,
   FontSizeExtension,
 } from "remirror/extensions";
+
 import {
   Remirror,
   useRemirror,
