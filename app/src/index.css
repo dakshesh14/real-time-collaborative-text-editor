@@ -1,3 +1,63 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.remirror-editor-wrapper h1 {
+  @apply text-2xl;
+}
+
+.remirror-editor-wrapper h2 {
+  @apply text-xl;
+}
+
+.remirror-editor-wrapper h3 {
+  @apply text-lg;
+}
+
+.remirror-editor-wrapper p {
+  @apply text-base;
+}
+
+.remirror-editor-wrapper a {
+  @apply text-orange-500;
+}
+
+.remirror-editor-wrapper ul {
+  @apply list-disc;
+}
+
+.remirror-editor-wrapper ol {
+  @apply list-decimal;
+}
+
+.remirror-editor-wrapper li {
+  @apply list-inside;
+}
+
+.remirror-editor-wrapper blockquote {
+  @apply border-l-4 border-orange-500;
+}
+
+.remirror-editor-wrapper pre {
+  @apply bg-gray-100;
+}
+
+.remirror-editor-wrapper code {
+  @apply bg-gray-200;
+}
+
+.remirror-editor-wrapper hr {
+  @apply border-t-2 border-gray-300;
+}
+
+.remirror-editor-wrapper img {
+  @apply rounded;
+}
+
+.remirror-editor-wrapper table {
+  @apply border border-gray-300;
+}
+
+.remirror-editor-wrapper tr {
+  @apply border border-gray-300;
+}
