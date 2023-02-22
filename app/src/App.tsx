@@ -27,8 +27,19 @@ const App = () => {
 
   if (isConnecting)
     return (
-      <div className="w-full h-screen flex items-center justify-center">
+      <div className="w-full h-screen flex gap-y-5 flex-col items-center justify-center">
         <Spinner />
+        <h2 className="text-2xl">
+          Connecting to websocket... (it may not even connect)
+        </h2>
+        <a href="/">
+          <button
+            type="button"
+            className="p-4 bg-indigo-600 py-2 rounded text-white"
+          >
+            Reload
+          </button>
+        </a>
       </div>
     );
 
