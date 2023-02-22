@@ -8,8 +8,6 @@ const App = () => {
     "ws://localhost:8000/ws/editor/my-room/"
   );
 
-  console.log(messages);
-
   return (
     <div className="container mx-auto py-10">
       <h1 className="text-2xl mb-5">Type something in real-time:</h1>

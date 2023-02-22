@@ -1,38 +1,34 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 
 const useWebSocket = (url: string) => {
   const [messages, setMessages] = useState<string>("Hello World!");
-
-  const sendMessage = (message: string) => {
-    const socket = new WebSocket(url);
-    socket.onopen = () => {
-      socket.send(
-        JSON.stringify({
-          type: "message",
-          message,
-        })
-      );
-    };
-  };
+  const socketRef = useRef<WebSocket | null>(null);
 
   useEffect(() => {
-    const socket = new WebSocket(url);
+    socketRef.current = new WebSocket(url);
 
-    socket.onopen = () => {
+    socketRef.current.onopen = () => {
       console.log("Connected to websocket");
     };
 
-    socket.onmessage = (event) => {
+    socketRef.current.onmessage = (event) => {
       const data = JSON.parse(event.data).message;
       setMessages(data);
     };
 
-    socket.onclose = () => {
+    socketRef.current.onclose = () => {
       console.log("Disconnected from websocket");
     };
 
-    return () => socket.close();
+    return () => socketRef.current?.close();
   }, [url]);
+
+  const sendMessage = useCallback(
+    (message: string) => {
+      socketRef.current?.send(JSON.stringify({ message }));
+    },
+    [socketRef]
+  );
 
   return {
     messages,
