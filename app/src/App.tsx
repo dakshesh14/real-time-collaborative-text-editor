@@ -11,9 +11,12 @@ import useWebSocket from "./hooks/use-websocket";
 import Editor from "./components/editor";
 import Spinner from "./components/spinner";
 
+const user_id = `user-${Math.floor(Math.random() * 1000)}`;
+
 const App = () => {
   const { messages, sendMessage, isConnecting } = useWebSocket(
-    "ws://localhost:8000/ws/editor/my-room/"
+    "ws://localhost:8000/ws/editor/my-room/", // TODO: make this dynamic
+    user_id
   );
 
   const editorRef = useRef<ReactFrameworkOutput<Extension<EmptyShape>> | null>(
@@ -22,7 +25,9 @@ const App = () => {
 
   useEffect(() => {
     if (!editorRef.current) return;
-    editorRef.current.setContent(messages);
+    // FIXME: this feels hacky; using it to update the editor's content
+    if (user_id !== messages.user_id)
+      editorRef.current.setContent(messages.message);
   }, [messages, editorRef]);
 
   if (isConnecting)
@@ -46,10 +51,7 @@ const App = () => {
   return (
     <div className="container mx-auto py-10">
       <h1 className="text-2xl mb-5">Type something in real-time:</h1>
-      <Editor value={messages} onChange={sendMessage} ref={editorRef} />
-      <pre>
-        <code>{JSON.stringify(messages, null, 2)}</code>
-      </pre>
+      <Editor value={messages.message} onChange={sendMessage} ref={editorRef} />
     </div>
   );
 };

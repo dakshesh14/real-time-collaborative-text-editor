@@ -2,6 +2,10 @@ import { forwardRef, useCallback, useImperativeHandle } from "react";
 
 import "remirror/styles/all.css";
 
+import * as Y from "yjs";
+
+import { WebrtcProvider } from "y-webrtc";
+
 import { Extension, InvalidContentHandler } from "remirror";
 import {
   BoldExtension,
@@ -17,6 +21,8 @@ import {
   ListItemExtension,
   BulletListExtension,
   FontSizeExtension,
+  CollaborationExtension,
+  YjsExtension,
 } from "remirror/extensions";
 
 import {
@@ -32,6 +38,12 @@ export interface Props {
   value?: any;
 }
 
+const ydoc = new Y.Doc();
+// use my server
+const provider = new WebrtcProvider("my-room", ydoc, {
+  signaling: ["ws://localhost:8000/ws/editor/my-room/"],
+});
+
 export const extensions = () => [
   new BoldExtension(),
   new ItalicExtension(),
@@ -46,6 +58,13 @@ export const extensions = () => [
   new CodeExtension(),
   new HistoryExtension(),
   new LinkExtension({ autoLink: true }),
+  // TODO: this takes care for Collaboration using CRDT?
+  new CollaborationExtension({
+    clientID: `client-${Math.random()}`,
+  }),
+  new YjsExtension({
+    getProvider: () => provider,
+  }),
 ];
 
 const EditorWithRef = forwardRef<ReactFrameworkOutput<Extension>, Props>(

@@ -1,9 +1,15 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 
-const useWebSocket = (url: string) => {
+const useWebSocket = (url: string, user_id: string) => {
   const socketRef = useRef<WebSocket | null>(null);
   const [isConnecting, setIsConnecting] = useState<boolean>(true);
-  const [messages, setMessages] = useState<string>("Hello World!");
+  const [messages, setMessages] = useState<{
+    user_id: string;
+    message: string;
+  }>({
+    user_id,
+    message: "Hello World",
+  } as any);
 
   useEffect(() => {
     socketRef.current = new WebSocket(url);
@@ -14,7 +20,7 @@ const useWebSocket = (url: string) => {
     };
 
     socketRef.current.onmessage = (event) => {
-      const data = JSON.parse(event.data).message;
+      const data = JSON.parse(event.data);
       setMessages(data);
     };
 
@@ -27,7 +33,7 @@ const useWebSocket = (url: string) => {
 
   const sendMessage = useCallback(
     (message: string) => {
-      socketRef.current?.send(JSON.stringify({ message }));
+      socketRef.current?.send(JSON.stringify({ message, user_id }));
     },
     [socketRef]
   );
