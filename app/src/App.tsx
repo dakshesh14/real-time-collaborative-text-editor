@@ -9,9 +9,10 @@ import useWebSocket from "./hooks/use-websocket";
 
 // components
 import Editor from "./components/editor";
+import Spinner from "./components/spinner";
 
 const App = () => {
-  const { messages, sendMessage } = useWebSocket(
+  const { messages, sendMessage, isConnecting } = useWebSocket(
     "ws://localhost:8000/ws/editor/my-room/"
   );
 
@@ -24,10 +25,20 @@ const App = () => {
     editorRef.current.setContent(messages);
   }, [messages, editorRef]);
 
+  if (isConnecting)
+    return (
+      <div className="w-full h-screen flex items-center justify-center">
+        <Spinner />
+      </div>
+    );
+
   return (
     <div className="container mx-auto py-10">
       <h1 className="text-2xl mb-5">Type something in real-time:</h1>
       <Editor value={messages} onChange={sendMessage} ref={editorRef} />
+      <pre>
+        <code>{JSON.stringify(messages, null, 2)}</code>
+      </pre>
     </div>
   );
 };

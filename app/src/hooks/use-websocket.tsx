@@ -1,13 +1,15 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 
 const useWebSocket = (url: string) => {
-  const [messages, setMessages] = useState<string>("Hello World!");
   const socketRef = useRef<WebSocket | null>(null);
+  const [isConnecting, setIsConnecting] = useState<boolean>(true);
+  const [messages, setMessages] = useState<string>("Hello World!");
 
   useEffect(() => {
     socketRef.current = new WebSocket(url);
 
     socketRef.current.onopen = () => {
+      setIsConnecting(false);
       console.log("Connected to websocket");
     };
 
@@ -31,6 +33,7 @@ const useWebSocket = (url: string) => {
   );
 
   return {
+    isConnecting,
     messages,
     sendMessage,
   } as const;
