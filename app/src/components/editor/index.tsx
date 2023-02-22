@@ -77,7 +77,9 @@ const EditorWithRef = forwardRef<ReactFrameworkOutput<Extension>, Props>(
         <Remirror
           manager={manager}
           initialContent={state}
-          classNames={["p-4 focus:outline-none"]}
+          classNames={[
+            "p-4 focus:outline-none h-96 overflow-y-auto scrollbar-hide",
+          ]}
         >
           <div className="rounded-md border">
             <EditorComponent />

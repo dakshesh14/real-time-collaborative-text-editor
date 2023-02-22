@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 .remirror-editor-wrapper h1 {
   @apply text-2xl;
 }
