@@ -9,6 +9,7 @@ Made using:
 - Redis
 - Vite React
 - Yjs
+- Remirror
 
 ## Installation:
 
