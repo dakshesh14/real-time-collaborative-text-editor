@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 
+// TODO: not being used; remove
 const useWebSocket = (url: string, user_id: string) => {
   const socketRef = useRef<WebSocket | null>(null);
   const [isConnecting, setIsConnecting] = useState<boolean>(true);
