@@ -1,6 +1,6 @@
 # Collaborative Text Editor
 
-A simple collaborative text editor which allows multiple users to edit the same document at the same time.
+A rich-text collaborative editor which allows multiple users to edit the same document at the same time.
 
 Made using:
 
