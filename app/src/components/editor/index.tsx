@@ -6,7 +6,7 @@ import "remirror/styles/all.css";
 
 import * as Y from "yjs";
 
-import { WebrtcProvider } from "y-webrtc";
+import { WebsocketProvider } from "y-websocket";
 
 import { InvalidContentHandler } from "remirror";
 import {
@@ -33,18 +33,26 @@ import {
   EditorComponent,
   OnChangeJSON,
 } from "@remirror/react";
-import Spinner from "../spinner";
 
 export interface Props {
-  userId: string;
+  username: string;
 }
 
-const ydoc = new Y.Doc();
-const provider = new WebrtcProvider("my-room", ydoc, {
-  signaling: ["ws://localhost:8000/ws/editor/my-room/"],
-});
+const colors = [
+  "#CC444B",
+  "#32292F",
+  "#8A4FFF",
+  "#0B2027",
+  "#F21B3F",
+  "#FF9914",
+  "#1F2041",
+  "#4B3F72",
+  "#FFC857",
+];
 
-const Editor: React.FC = () => {
+const Editor: React.FC<Props> = (props) => {
+  const { username } = props;
+
   // remirror error handler
   const onError: InvalidContentHandler = useCallback(
     ({ json, invalidContent, transformers }: any) => {
@@ -54,7 +62,20 @@ const Editor: React.FC = () => {
     []
   );
 
-  // remirror manager
+  const ydoc = new Y.Doc();
+  const provider = new WebsocketProvider(
+    "ws://localhost:8000/ws/editor/",
+    "my-room",
+    ydoc
+  );
+
+  // set user
+  provider.awareness.setLocalStateField("user", {
+    name: username,
+    color: colors[randomInt(0, colors.length - 1)],
+  });
+
+  // TODO: reset form when room changes
   const { manager, state, onChange } = useRemirror({
     extensions: () => [
       new BoldExtension(),
@@ -70,43 +91,23 @@ const Editor: React.FC = () => {
       new CodeExtension(),
       new HistoryExtension(),
       new LinkExtension({ autoLink: true }),
-      // TODO: this takes care for Collaboration using CRDT?
       new CollaborationExtension({
-        clientID: `user-${randomInt(1000)}`,
+        clientID: username,
       }),
       new YjsExtension({
         getProvider: () => provider,
       }),
     ],
-    content: "",
     selection: "start",
-    stringHandler: "html",
     onError,
   });
-
-  if (!provider.connected)
-    return (
-      <div className="w-full h-full flex gap-y-5 flex-col items-center justify-center">
-        <Spinner />
-        <h2 className="text-2xl">
-          Connecting to websocket... (it may not even connect)
-        </h2>
-        <a href="/">
-          <button
-            type="button"
-            className="p-4 bg-indigo-600 py-2 rounded text-white"
-          >
-            Reload
-          </button>
-        </a>
-      </div>
-    );
 
   return (
     <div className="mt-2 mb-4">
       <Remirror
         manager={manager}
         initialContent={state}
+        placeholder="Start typing...Please be respectful :)"
         classNames={[
           "p-4 focus:outline-none h-96 overflow-y-auto scrollbar-hide",
         ]}

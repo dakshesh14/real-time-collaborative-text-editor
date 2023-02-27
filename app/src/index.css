@@ -28,14 +28,16 @@
 
 .remirror-editor-wrapper ul {
   @apply list-disc;
+  margin-left: 1.5rem;
 }
 
 .remirror-editor-wrapper ol {
   @apply list-decimal;
+  margin-left: 1.5rem;
 }
 
-.remirror-editor-wrapper li {
-  @apply list-inside;
+.remirror-editor-wrapper li li {
+  margin-left: 1.5rem;
 }
 
 .remirror-editor-wrapper blockquote {
