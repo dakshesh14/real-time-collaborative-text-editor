@@ -2,7 +2,7 @@
 
 A rich-text collaborative editor which allows multiple users to edit the same document at the same time. It uses Django Channels for real-time communication and Yjs for collaborative editing. It also uses Remirror for rich-text editing. It is a work in progress. Feel free to contribute.
 
-![me](https://github.com/dakshesh14/real-time-collaborative-text-editor/blob/master/public/demo.gif)
+![demo](https://user-images.githubusercontent.com/65905942/221920988-acecf39b-c377-4cab-af24-a9c7f699a0c6.gif)
 
 Made using:
 
