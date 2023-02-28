@@ -1,6 +1,8 @@
 # Collaborative Text Editor
 
-A rich-text collaborative editor which allows multiple users to edit the same document at the same time.
+A rich-text collaborative editor which allows multiple users to edit the same document at the same time. It uses Django Channels for real-time communication and Yjs for collaborative editing. It also uses Remirror for rich-text editing. It is a work in progress. Feel free to contribute.
+
+![me](https://github.com/dakshesh14/real-time-collaborative-text-editor/blob/master/public/demo.gif)
 
 Made using:
 
@@ -10,6 +12,15 @@ Made using:
 - Vite React
 - Yjs
 - Remirror
+
+## Features:
+
+- Real-time collaboration editing
+- Uses data-types like CRDTs to avoid conflicts
+- Uses Vite React for faster development & interactive user experience
+- Other users can see the changes in real-time + the cursor position of the user who is typing
+
+There are some more features which can be added, and to leave space for that, I have created the project using Django as the backend.
 
 ## Installation:
 
@@ -35,3 +46,13 @@ Made using:
 
 - [ ] Optimize backend
 - [ ] Optimize frontend
+- [ ] Use peer-to-peer communication using WebRTC
+- [ ] Add ability to create multiple documents(or rooms)
+
+With these features in mind, this project can be a great starting point for anyone who wants to build a real-time collaborative editor or take this knowledge and apply it to their own projects.
+
+## Contributing
+
+Contributions are welcome! Fork the repo and submit a pull request. If you have any questions, feel free to open an issue.
+
+Made with :heart: by [Dakshesh](https://github.com/dakshesh14)
