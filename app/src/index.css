@@ -49,7 +49,7 @@
 }
 
 .remirror-editor-wrapper code {
-  @apply bg-gray-200;
+  @apply text-slate-50;
 }
 
 .remirror-editor-wrapper hr {
